@@ -4,11 +4,9 @@ import {FlatList} from 'react-native';
 import {CheckBox, Icon} from '@rneui/themed';
 
 import {listFilter, listSort} from '../../utils/constants';
-import CheckboxRadio from '../CheckboxRadio/CheckboxRadio';
-import ModalComponent from '../Modal/Modal';
+import {CheckboxRadio} from '../CheckboxRadio/CheckboxRadio';
+import {ModalComponent} from '../Modal/Modal';
 import {FilterContext} from '../../context/FilterContext';
-import {DataCharacterContext} from '../../context/DataCharacterContext';
-import {PageContext} from '../../context/PageContext';
 
 import {
   ApplyButton,
@@ -22,14 +20,14 @@ import {
   Title,
 } from './Filter.styles';
 
-export interface IFilter {
+export interface Filter {
   name?: string;
   status?: string;
   species?: string;
   gender?: string;
 }
 
-const Filter = () => {
+export const Filter = () => {
   const navigation = useNavigation();
 
   const [clear, setClear] = useState<boolean>(false);
@@ -38,15 +36,11 @@ const Filter = () => {
   const [check, setCheck] = useState<boolean>(false);
   const [check2, setCheck2] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
-  const [filterObj, setFilterObj] = useState<IFilter>({});
+  const [filterObj, setFilterObj] = useState<Filter>({});
 
   const {setFilter} = useContext(FilterContext);
-  const {setDataCharacter} = useContext(DataCharacterContext);
-  const {setPage} = useContext(PageContext);
 
   const handlerApplyButton = () => {
-    setDataCharacter([]);
-    setPage(1);
     setFilter({...filterObj, name: name});
     navigation.navigate('Character' as never);
   };
@@ -194,5 +188,3 @@ const Filter = () => {
     </Container>
   );
 };
-
-export default Filter;

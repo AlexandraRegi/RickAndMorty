@@ -1,20 +1,20 @@
 import React from 'react';
 import {CheckBox, Icon} from '@rneui/themed';
 
-import {IFilter} from '../Filter/Filter';
+import {Filter} from '../Filter/Filter';
 
 interface Props {
   item: {id: number; sort: string};
   selectedCheckbox: number;
   setCheckbox: (selectedCheckbox: number) => void;
-  setFilterObj: ({}: IFilter) => void;
-  filterObj: IFilter;
+  setFilterObj: ({}: Filter) => void;
+  filterObj: Filter;
   sortName: string;
   clear: boolean;
   setClear: (clear: boolean) => void;
 }
 
-const CheckboxComponent = ({
+export const CheckboxComponent = ({
   item,
   selectedCheckbox,
   setCheckbox,
@@ -84,5 +84,3 @@ const CheckboxComponent = ({
     </>
   );
 };
-
-export default CheckboxComponent;

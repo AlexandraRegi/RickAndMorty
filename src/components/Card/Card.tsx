@@ -1,8 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-import {ICharacter} from '../../context/DataCharacterContext';
-
 import {
   CharacterCard,
   CharacterImage,
@@ -10,10 +8,18 @@ import {
   CharacterName,
 } from './Card.styles';
 
-const Card = (item: ICharacter) => {
+export interface Character {
+  __typename?: 'Character' | undefined;
+  id?: string | null | undefined;
+  name?: string | null | undefined;
+  status?: string | null | undefined;
+  image?: string | null | undefined;
+}
+
+export const Card = (item: Character) => {
   return (
     <CharacterCard>
-      <CharacterImage source={{uri: item?.image}} />
+      <CharacterImage source={{uri: item?.image!}} />
       <CharacterInfo>
         <Text>{item?.status}</Text>
         <CharacterName>{item?.name}</CharacterName>
@@ -21,5 +27,3 @@ const Card = (item: ICharacter) => {
     </CharacterCard>
   );
 };
-
-export default Card;

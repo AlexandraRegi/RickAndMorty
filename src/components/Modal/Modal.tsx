@@ -1,12 +1,14 @@
 import React from 'react';
-import {Modal, TouchableOpacity, View} from 'react-native';
+import {Modal, View} from 'react-native';
 
 import {
   BackText,
   ModalHeader,
   ModalContainer,
   ModalTitle,
+  ModalButtonBack,
 } from './Modal.styles';
+import {BackIcon} from '../../icons/back';
 
 interface Props {
   modalVisible: boolean;
@@ -15,7 +17,7 @@ interface Props {
   title: string;
 }
 
-const ModalComponent = ({
+export const ModalComponent = ({
   modalVisible,
   setModalVisible,
   children,
@@ -31,9 +33,10 @@ const ModalComponent = ({
       }}>
       <ModalContainer>
         <ModalHeader>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <BackText>{'< Back'}</BackText>
-          </TouchableOpacity>
+          <ModalButtonBack onPress={() => setModalVisible(!modalVisible)}>
+            <BackIcon />
+            <BackText>{'Back'}</BackText>
+          </ModalButtonBack>
           <ModalTitle>{title}</ModalTitle>
         </ModalHeader>
         <View>{children}</View>
@@ -41,5 +44,3 @@ const ModalComponent = ({
     </Modal>
   );
 };
-
-export default ModalComponent;

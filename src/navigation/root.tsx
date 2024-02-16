@@ -1,12 +1,12 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import TabBar from './tabBar';
-import FilterScreen from '../screens/FilterScreen';
+import {TabBar} from './tabBar';
+import {FilterScreen} from '../screens/FilterScreen';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigation = () => {
+export const RootNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{header: () => null}}>
       <Stack.Group>
@@ -18,5 +18,3 @@ const RootNavigation = () => {
     </Stack.Navigator>
   );
 };
-
-export default RootNavigation;

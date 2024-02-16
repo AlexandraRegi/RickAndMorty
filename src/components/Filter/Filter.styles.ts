@@ -2,12 +2,10 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   background-color: #fff;
-  //flex: 1;
   height: 100%;
 `;
 
 export const Header = styled.View`
-  //height: 80px;
   height: 8%;
   display: flex;
   flex-direction: row;
@@ -41,7 +39,7 @@ export const ApplyButton = styled.TouchableOpacity`
   background-color: #5856d6;
   align-items: center;
   justify-content: center;
-  padding: 0px 12px;
+  padding-horizontal: 12px;
 `;
 
 export const ApplyText = styled.Text`
@@ -51,21 +49,21 @@ export const ApplyText = styled.Text`
   line-height: 18px;
 `;
 
-export const ContainerCheckbox = styled.View`
-  //flex: 1;
-  //height: 95%;
-`;
+export const ContainerCheckbox = styled.View``;
 
 export const SortName = styled.Text`
   color: #00000066;
   font-size: 15px;
   font-weight: 400;
   line-height: 18px;
-  margin: 15px 0px 0px 20px;
+  margin-top: 15px;
+  margin-left: 20px;
 `;
 
 export const ModalInput = styled.TextInput`
-  margin: 10px 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-horizontal: 15px;
   padding: 10px;
   height: 36px;
   border: 1px solid transparent;

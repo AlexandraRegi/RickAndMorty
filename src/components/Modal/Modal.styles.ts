@@ -19,7 +19,11 @@ export const ModalTitle = styled.Text`
   color: #081f32;
 `;
 
-export const ModalButtonBack = styled.TouchableOpacity``;
+export const ModalButtonBack = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+`;
 
 export const BackText = styled.Text`
   font-size: 17px;

@@ -1,9 +1,9 @@
-export interface IListFilter {
+export interface ListFilter {
   id: string;
   list: {id: number; sort: string}[];
 }
 
-export const listFilter: IListFilter[] = [
+export const listFilter: ListFilter[] = [
   {
     id: 'Status',
     list: [
@@ -22,7 +22,7 @@ export const listFilter: IListFilter[] = [
     ],
   },
 ];
-export const listSort: IListFilter = {
+export const listSort: ListFilter = {
   id: 'Species',
   list: [
     {id: 1, sort: 'Human'},

@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
 
-import CheckboxComponent from '../Checkbox/Checkbox';
-import {IListFilter} from '../../utils/constants';
-import {IFilter} from '../Filter/Filter';
+import {CheckboxComponent} from '../Checkbox/Checkbox';
+import {ListFilter} from '../../utils/constants';
+import {Filter} from '../Filter/Filter';
 
 import {SortName} from '../Filter/Filter.styles';
 
 interface Props {
-  item: IListFilter;
-  setFilterObj: ({}: IFilter) => void;
-  filterObj: IFilter;
+  item: ListFilter;
+  setFilterObj: ({}: Filter) => void;
+  filterObj: Filter;
   clear: boolean;
   setClear: (clear: boolean) => void;
 }
 
-const CheckboxRadio = ({
+export const CheckboxRadio = ({
   item,
   filterObj,
   setFilterObj,
@@ -49,5 +49,3 @@ const CheckboxRadio = ({
     </>
   );
 };
-
-export default CheckboxRadio;
