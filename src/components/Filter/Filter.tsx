@@ -1,22 +1,24 @@
-import React, {useContext, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {FlatList} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, Text, View} from 'react-native';
 import {CheckBox, Icon} from '@rneui/themed';
 
 import {listFilter, listSort} from '../../utils/constants';
 import {CheckboxRadio} from '../CheckboxRadio/CheckboxRadio';
 import {ModalComponent} from '../Modal/Modal';
-import {FilterContext} from '../../context/FilterContext';
+import {useFilterContext} from '../../context/FilterContext';
+import {useNavigation} from '../../hooks/useNavigation';
 
 import {
   ApplyButton,
   ApplyText,
+  CheckboxModal,
   ClearButton,
   ClearText,
   Container,
   ContainerCheckbox,
   Header,
   ModalInput,
+  NameOfQualification,
   Title,
 } from './Filter.styles';
 
@@ -30,44 +32,45 @@ export interface Filter {
 export const Filter = () => {
   const navigation = useNavigation();
 
-  const [clear, setClear] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalVisible2, setModalVisible2] = useState<boolean>(false);
-  const [check, setCheck] = useState<boolean>(false);
-  const [check2, setCheck2] = useState<boolean>(false);
-  const [name, setName] = useState<string>('');
+  const [clear, setClear] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [isNameChecked, setNameCheck] = useState(false);
+  const [isSpeciesChecked, setSpeciesCheck] = useState(false);
+  const [name, setName] = useState('');
   const [filterObj, setFilterObj] = useState<Filter>({});
 
-  const {setFilter} = useContext(FilterContext);
+  const {filter, setFilter} = useFilterContext();
 
   const handlerApplyButton = () => {
     setFilter({...filterObj, name: name});
-    navigation.navigate('Character' as never);
+    navigation.navigate('Character');
   };
 
   const handlerClearButton = () => {
     setClear(true);
-    setCheck(false);
-    setCheck2(false);
+    setNameCheck(false);
+    setSpeciesCheck(false);
     setFilter({});
     setFilterObj({});
   };
 
-  const handlerCheck = () => {
+  const handlerNameCheck = () => {
     setModalVisible(true);
-    setCheck(!check);
+    setNameCheck(!isNameChecked);
   };
 
-  const handlerCheck2 = () => {
+  const handlerSpeciesCheck = () => {
     setModalVisible2(true);
-    setCheck2(!check2);
+    setSpeciesCheck(!isSpeciesChecked);
   };
 
   return (
     <Container>
       <Header>
         <ClearButton onPress={handlerClearButton}>
-          {Object.keys(filterObj).length !== 0 && <ClearText>Clear</ClearText>}
+          {Object.keys(filterObj).length !== 0 ||
+            (Object.keys(filter).length !== 0 && <ClearText>Clear</ClearText>)}
         </ClearButton>
         <Title>Filter</Title>
         <ApplyButton onPress={handlerApplyButton}>
@@ -75,102 +78,80 @@ export const Filter = () => {
         </ApplyButton>
       </Header>
       <ContainerCheckbox>
-        <CheckBox
-          title={'Name'}
-          checkedIcon={
-            <Icon
-              name="radio-button-checked"
-              type="material"
-              color="#5856D6"
-              size={25}
-              iconStyle={{marginRight: 10}}
-            />
-          }
-          uncheckedIcon={
-            <Icon
-              name="radio-button-unchecked"
-              type="material"
-              color="#AEAEB2"
-              size={25}
-              iconStyle={{marginRight: 10}}
-            />
-          }
-          checked={check}
-          onPress={handlerCheck}
-          containerStyle={{
-            borderTopWidth: 0.7,
-            borderStyle: 'solid',
-            borderColor: '#AEAEB2',
-            margin: 0,
-          }}
-          textStyle={
-            {
-              color: '#081f32',
-              fontSize: 17,
-              fontWeight: 400,
-              lineHeight: 22,
-            } as any
-          }
-        />
-        <ModalComponent
-          title="Name"
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}>
-          <ModalInput
-            placeholder="Search"
-            onChangeText={setName}
-            value={name}
+        <CheckboxModal>
+          <CheckBox
+            checkedIcon={
+              <Icon
+                name="radio-button-checked"
+                type="material"
+                color="#5856D6"
+                size={25}
+              />
+            }
+            uncheckedIcon={
+              <Icon
+                name="radio-button-unchecked"
+                type="material"
+                color="#AEAEB2"
+                size={25}
+              />
+            }
+            checked={isNameChecked}
+            onPress={handlerNameCheck}
           />
-        </ModalComponent>
-        <CheckBox
-          title={'Species'}
-          checkedIcon={
-            <Icon
-              name="radio-button-checked"
-              type="material"
-              color="#5856D6"
-              size={25}
-              iconStyle={{marginRight: 10}}
+          <View>
+            <NameOfQualification>Name</NameOfQualification>
+            <Text>Give a name</Text>
+          </View>
+          <ModalComponent
+            title="Name"
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}>
+            <ModalInput
+              placeholder="Search"
+              onChangeText={setName}
+              value={name}
             />
-          }
-          uncheckedIcon={
-            <Icon
-              name="radio-button-unchecked"
-              type="material"
-              color="#AEAEB2"
-              size={25}
-              iconStyle={{marginRight: 10}}
-            />
-          }
-          checked={check2}
-          onPress={handlerCheck2}
-          containerStyle={{
-            borderTopWidth: 0.7,
-            borderStyle: 'solid',
-            borderColor: '#AEAEB2',
-            margin: 0,
-          }}
-          textStyle={
-            {
-              color: '#081f32',
-              fontSize: 17,
-              fontWeight: 400,
-              lineHeight: 22,
-            } as any
-          }
-        />
-        <ModalComponent
-          title="Species"
-          modalVisible={modalVisible2}
-          setModalVisible={setModalVisible2}>
-          <CheckboxRadio
-            item={listSort}
-            filterObj={filterObj}
-            setFilterObj={setFilterObj}
-            clear={clear}
-            setClear={setClear}
+          </ModalComponent>
+        </CheckboxModal>
+        <CheckboxModal>
+          <CheckBox
+            checkedIcon={
+              <Icon
+                name="radio-button-checked"
+                type="material"
+                color="#5856D6"
+                size={25}
+              />
+            }
+            uncheckedIcon={
+              <Icon
+                name="radio-button-unchecked"
+                type="material"
+                color="#AEAEB2"
+                size={25}
+              />
+            }
+            checked={isSpeciesChecked}
+            onPress={handlerSpeciesCheck}
           />
-        </ModalComponent>
+          <View>
+            <NameOfQualification>Species</NameOfQualification>
+            <Text>Select one</Text>
+          </View>
+          <ModalComponent
+            title="Species"
+            modalVisible={modalVisible2}
+            setModalVisible={setModalVisible2}>
+            <CheckboxRadio
+              item={listSort}
+              filterObj={filterObj}
+              setFilterObj={setFilterObj}
+              clear={clear}
+              setClear={setClear}
+            />
+          </ModalComponent>
+        </CheckboxModal>
         <FlatList
           data={listFilter}
           renderItem={item => (

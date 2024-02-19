@@ -1,20 +1,14 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {loadErrorMessages, loadDevMessages} from '@apollo/client/dev';
 import {FlatList, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 import {gql} from '../../gql/gql';
 import {Card} from '../Card/Card';
-import {FilterContext} from '../../context/FilterContext';
+import {useFilterContext} from '../../context/FilterContext';
+import {useNavigation} from '../../hooks/useNavigation';
 
-import {
-  Header,
-  Title,
-  Filter,
-  CharactersList,
-  Container,
-} from './CardList.styles';
+import {Header, Title, Filter, Container} from './CardList.styles';
 
 if (__DEV__) {
   loadDevMessages();
@@ -35,9 +29,9 @@ const AllCharacters = gql(`
 `);
 
 export const CardList = () => {
-  const {filter} = useContext(FilterContext);
-  const [page, setPage] = useState<number>(1);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const {filter} = useFilterContext();
+  const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
 
   const navigation = useNavigation();
 
@@ -79,24 +73,22 @@ export const CardList = () => {
     <Container>
       <Header>
         <Title>Character</Title>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('FilterScreen' as never)}>
+        <TouchableOpacity onPress={() => navigation.navigate('FilterScreen')}>
           <Filter>Filter</Filter>
         </TouchableOpacity>
       </Header>
-      <CharactersList>
-        <FlatList
-          data={data?.characters?.results}
-          numColumns={2}
-          renderItem={({item}) => <Card {...item} />}
-          keyExtractor={item => item?.id!}
-          scrollEnabled={true}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          onEndReachedThreshold={1}
-          onEndReached={fetchMoreData}
-        />
-      </CharactersList>
+      <FlatList
+        data={data?.characters?.results}
+        numColumns={2}
+        contentContainerStyle={{padding: 5}}
+        renderItem={({item}) => <Card {...item} />}
+        keyExtractor={item => item?.id!}
+        scrollEnabled={true}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={1}
+        onEndReached={fetchMoreData}
+      />
     </Container>
   );
 };

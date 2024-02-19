@@ -2,6 +2,7 @@ import React from 'react';
 import {CheckBox, Icon} from '@rneui/themed';
 
 import {Filter} from '../Filter/Filter';
+import {Container, SortContainer, SortName} from './Checkbox.styles';
 
 interface Props {
   item: {id: number; sort: string};
@@ -43,16 +44,14 @@ export const CheckboxComponent = ({
   };
 
   return (
-    <>
+    <Container>
       <CheckBox
-        title={item?.sort}
         checkedIcon={
           <Icon
             name="radio-button-checked"
             type="material"
             color="#5856D6"
             size={25}
-            iconStyle={{marginRight: 10}}
           />
         }
         uncheckedIcon={
@@ -61,26 +60,17 @@ export const CheckboxComponent = ({
             type="material"
             color="#AEAEB2"
             size={25}
-            iconStyle={{marginRight: 10}}
           />
         }
         checked={selectedCheckbox === item?.id}
         onPress={handlerCheckbox}
         containerStyle={{
-          borderTopWidth: 0.7,
-          borderStyle: 'solid',
-          borderColor: '#AEAEB2',
           margin: 0,
         }}
-        textStyle={
-          {
-            color: '#081f32',
-            fontSize: 17,
-            fontWeight: 400,
-            lineHeight: 22,
-          } as any
-        }
       />
-    </>
+      <SortContainer>
+        <SortName>{item?.sort}</SortName>
+      </SortContainer>
+    </Container>
   );
 };

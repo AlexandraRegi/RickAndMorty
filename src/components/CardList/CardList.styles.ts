@@ -2,12 +2,12 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   background-color: #fff;
-  height: 95%;
+  height: 100%;
 `;
 
 export const Header = styled.View`
   background-color: #f2f2f7;
-  height: 12%;
+  height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,8 +30,4 @@ export const Filter = styled.Text`
   align-self: flex-start;
   margin: 16px;
   color: #5856d6;
-`;
-
-export const CharactersList = styled.View`
-  padding: 5px;
 `;

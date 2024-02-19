@@ -1,4 +1,6 @@
 import React from 'react';
+import type {PropsWithChildren, ReactNode} from 'react';
+
 import {Modal, View} from 'react-native';
 
 import {
@@ -13,7 +15,7 @@ import {BackIcon} from '../../icons/back';
 interface Props {
   modalVisible: boolean;
   setModalVisible: (modalVisible: boolean) => void;
-  children: string | JSX.Element | JSX.Element[];
+  children: ReactNode;
   title: string;
 }
 
@@ -22,7 +24,7 @@ export const ModalComponent = ({
   setModalVisible,
   children,
   title,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
   return (
     <Modal
       animationType="slide"

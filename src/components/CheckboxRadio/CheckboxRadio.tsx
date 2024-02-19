@@ -45,6 +45,12 @@ export const CheckboxRadio = ({
           />
         )}
         keyExtractor={item => item.id.toString()}
+        style={{
+          borderTopWidth: 0.5,
+          borderBottomWidth: 0.5,
+          borderStyle: 'solid',
+          borderColor: '#AEAEB2',
+        }}
       />
     </>
   );

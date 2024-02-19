@@ -49,7 +49,9 @@ export const ApplyText = styled.Text`
   line-height: 18px;
 `;
 
-export const ContainerCheckbox = styled.View``;
+export const ContainerCheckbox = styled.View`
+  //width: 100%;
+`;
 
 export const SortName = styled.Text`
   color: #00000066;
@@ -74,4 +76,24 @@ export const ModalInput = styled.TextInput`
 export const SortSpecies = styled.View`
   display: flex;
   flex-direction: row;
+`;
+
+export const CheckboxModal = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60px;
+  border-top-width: 0.5px;
+  border-bottom-width: 0.5px;
+  border-style: solid;
+  border-color: #aeaeb2;
+  margin: 0px;
+  margin-bottom: 20px;
+`;
+
+export const NameOfQualification = styled.Text`
+  color: #081f32;
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 22px;
 `;

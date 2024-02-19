@@ -1,6 +1,7 @@
 import React, {
   PropsWithChildren,
   createContext,
+  useContext,
   useMemo,
   useState,
 } from 'react';
@@ -11,6 +12,8 @@ const initialValues = {
 };
 
 export const FilterContext = createContext(initialValues);
+
+export const useFilterContext = () => useContext(FilterContext);
 
 export const FilterProvider = ({children}: PropsWithChildren) => {
   const [filter, setFilter] = useState({});
