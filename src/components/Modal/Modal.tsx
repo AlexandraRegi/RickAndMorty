@@ -1,5 +1,5 @@
 import React from 'react';
-import type {PropsWithChildren, ReactNode} from 'react';
+import type {PropsWithChildren} from 'react';
 
 import {Modal, View} from 'react-native';
 
@@ -15,7 +15,6 @@ import {BackIcon} from '../../icons/back';
 interface Props {
   modalVisible: boolean;
   setModalVisible: (modalVisible: boolean) => void;
-  children: ReactNode;
   title: string;
 }
 

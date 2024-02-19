@@ -33,8 +33,8 @@ export const Filter = () => {
   const navigation = useNavigation();
 
   const [clear, setClear] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisible2, setModalVisible2] = useState(false);
+  const [modalNameVisible, setModalNameVisible] = useState(false);
+  const [modalSpeciesVisible, setModalSpeciesVisible] = useState(false);
   const [isNameChecked, setNameCheck] = useState(false);
   const [isSpeciesChecked, setSpeciesCheck] = useState(false);
   const [name, setName] = useState('');
@@ -56,13 +56,13 @@ export const Filter = () => {
   };
 
   const handlerNameCheck = () => {
-    setModalVisible(true);
-    setNameCheck(!isNameChecked);
+    setModalNameVisible(true);
+    setNameCheck(prevState => !prevState);
   };
 
   const handlerSpeciesCheck = () => {
-    setModalVisible2(true);
-    setSpeciesCheck(!isSpeciesChecked);
+    setModalSpeciesVisible(true);
+    setSpeciesCheck(prevState => !prevState);
   };
 
   return (
@@ -105,8 +105,8 @@ export const Filter = () => {
           </View>
           <ModalComponent
             title="Name"
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}>
+            modalVisible={modalNameVisible}
+            setModalVisible={setModalNameVisible}>
             <ModalInput
               placeholder="Search"
               onChangeText={setName}
@@ -141,8 +141,8 @@ export const Filter = () => {
           </View>
           <ModalComponent
             title="Species"
-            modalVisible={modalVisible2}
-            setModalVisible={setModalVisible2}>
+            modalVisible={modalSpeciesVisible}
+            setModalVisible={setModalSpeciesVisible}>
             <CheckboxRadio
               item={listSort}
               filterObj={filterObj}

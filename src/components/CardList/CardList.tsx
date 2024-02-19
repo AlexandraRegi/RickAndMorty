@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from 'react';
-import {useQuery} from '@apollo/client';
+//import {useQuery} from '@apollo/client';
 import {loadErrorMessages, loadDevMessages} from '@apollo/client/dev';
 import {FlatList, TouchableOpacity} from 'react-native';
 
-import {gql} from '../../gql/gql';
 import {Card} from '../Card/Card';
 import {useFilterContext} from '../../context/FilterContext';
 import {useNavigation} from '../../hooks/useNavigation';
+import {useCharactersQuery} from '../../gql/graphql';
 
 import {Header, Title, Filter, Container} from './CardList.styles';
 
@@ -15,19 +15,6 @@ if (__DEV__) {
   loadErrorMessages();
 }
 
-const AllCharacters = gql(`
-    query characters ($page: Int, $filter: FilterCharacter) {    
-        characters (page: $page, filter:$filter) {
-            results {
-                name
-                id
-                status
-                image
-            }
-        }
-    }
-`);
-
 export const CardList = () => {
   const {filter} = useFilterContext();
   const [page, setPage] = useState(1);
@@ -35,9 +22,8 @@ export const CardList = () => {
 
   const navigation = useNavigation();
 
-  const {data, refetch, fetchMore} = useQuery(AllCharacters, {
-    variables: {filter},
-    //onCompleted: data => data,
+  const {data, fetchMore, refetch} = useCharactersQuery({
+    variables: {filter: filter},
     fetchPolicy: 'cache-and-network',
   });
 
@@ -80,10 +66,8 @@ export const CardList = () => {
       <FlatList
         data={data?.characters?.results}
         numColumns={2}
-        contentContainerStyle={{padding: 5}}
         renderItem={({item}) => <Card {...item} />}
         keyExtractor={item => item?.id!}
-        scrollEnabled={true}
         refreshing={refreshing}
         onRefresh={onRefresh}
         onEndReachedThreshold={1}

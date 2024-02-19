@@ -11,7 +11,7 @@
     "generate": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.10",
+    "@apollo/client": "^3.9.5",
     "@gorhom/bottom-sheet": "^4.6.0",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
