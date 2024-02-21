@@ -43,6 +43,7 @@ export const CardList = () => {
         if (!fetchMoreResult) return prev;
         return {
           characters: {
+            __typename: prev.characters?.__typename,
             results: [
               ...prev.characters?.results!,
               ...fetchMoreResult.characters?.results!,

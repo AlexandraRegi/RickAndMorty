@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {CharacterScreen} from '../screens/CharacterScreen';
+import {CharacterScreen} from '../screens/CharactersScreen';
 import {LocationScreen} from '../screens/LocationScreen';
 import {EpisodeScreen} from '../screens/EpisodeScreen';
 import {
