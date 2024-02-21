@@ -11,6 +11,7 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
+
 export type Scalars = {
   ID: { input: string; output: string; }
   String: { input: string; output: string; }
@@ -211,7 +212,10 @@ export type CharacterQueryVariables = Exact<{
 }>;
 
 
-export type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', name?: string | null, id?: string | null, status?: string | null, image?: string | null, species?: string | null, gender?: string | null, type?: string | null, origin?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, location?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, episode: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null, air_date?: string | null, episode?: string | null } | null> } | null };
+export type CharacterQuery = { __typename?: 'Query', character?: (
+    { __typename?: 'Character', id?: string | null, species?: string | null, gender?: string | null, type?: string | null, origin?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, location?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, episode: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null, air_date?: string | null, episode?: string | null } | null> }
+    & { ' $fragmentRefs'?: { 'CharacterFragmentFragment': CharacterFragmentFragment } }
+  ) | null };
 
 export type CharactersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -219,16 +223,25 @@ export type CharactersQueryVariables = Exact<{
 }>;
 
 
-export type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null, status?: string | null, image?: string | null } | null> | null } | null };
+export type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<(
+      { __typename?: 'Character', id?: string | null }
+      & { ' $fragmentRefs'?: { 'CharacterFragmentFragment': CharacterFragmentFragment } }
+    ) | null> | null } | null };
 
+export type CharacterFragmentFragment = { __typename?: 'Character', name?: string | null, status?: string | null, image?: string | null } & { ' $fragmentName'?: 'CharacterFragmentFragment' };
 
+export const CharacterFragmentFragmentDoc = gql`
+    fragment CharacterFragment on Character {
+  name
+  status
+  image
+}
+    `;
 export const CharacterDocument = gql`
     query character($id: ID!) {
   character(id: $id) {
-    name
     id
-    status
-    image
+    ...CharacterFragment
     species
     gender
     type
@@ -248,7 +261,7 @@ export const CharacterDocument = gql`
     }
   }
 }
-    `;
+    ${CharacterFragmentFragmentDoc}`;
 
 /**
  * __useCharacterQuery__
@@ -286,14 +299,12 @@ export const CharactersDocument = gql`
     query characters($page: Int, $filter: FilterCharacter) {
   characters(page: $page, filter: $filter) {
     results {
-      name
       id
-      status
-      image
+      ...CharacterFragment
     }
   }
 }
-    `;
+    ${CharacterFragmentFragmentDoc}`;
 
 /**
  * __useCharactersQuery__

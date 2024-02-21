@@ -116,7 +116,7 @@ export const CharacteristicValues = styled.Text`
   color: #6e798c;
 `;
 
-export const Episodes = styled.View`
+export const EpisodesContainer = styled.View`
   height: 77px;
   justify-content: center;
   margin-left: 10px;

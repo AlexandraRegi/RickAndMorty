@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, ScrollView} from 'react-native';
-import {CommonActions} from '@react-navigation/native';
 
 import {QueryCharacterArgs, useCharacterQuery} from '../../gql/graphql';
 import {useNavigation} from '../../hooks/useNavigation';
@@ -22,9 +21,27 @@ import {
   CharacteristicName,
   CharacteristicValues,
   EpisodesDate,
-  Episodes,
+  EpisodesContainer,
   PersonalBackgroundImage,
 } from './DetailCard.styles';
+
+interface Episode {
+  __typename?: 'Episode' | undefined;
+  id?: string | null | undefined;
+  name?: string | null | undefined;
+  air_date?: string | null | undefined;
+  episode?: string | null | undefined;
+}
+
+const Episodes = (item: Episode) => {
+  return (
+    <EpisodesContainer>
+      <CharacteristicName>{item?.episode}</CharacteristicName>
+      <CharacteristicValues>{item?.name}</CharacteristicValues>
+      <EpisodesDate>{item?.air_date}</EpisodesDate>
+    </EpisodesContainer>
+  );
+};
 
 export const DetailCard = ({id}: QueryCharacterArgs) => {
   const navigation = useNavigation();
@@ -34,12 +51,10 @@ export const DetailCard = ({id}: QueryCharacterArgs) => {
   });
   const dataCharacter = data?.character;
 
-  console.log(dataCharacter);
-
   return (
     <ScrollView>
       <DetailCardHeader>
-        <ButtonBack onPress={() => navigation.dispatch(CommonActions.goBack())}>
+        <ButtonBack onPress={() => navigation.goBack()}>
           <BackIcon />
           <BackText>{'Back'}</BackText>
         </ButtonBack>
@@ -69,7 +84,7 @@ export const DetailCard = ({id}: QueryCharacterArgs) => {
         </Characteristic>
         <Characteristic>
           <CharacteristicName>Type</CharacteristicName>
-          {dataCharacter?.type?.length === 0 ? (
+          {!dataCharacter?.type ? (
             <CharacteristicValues>Unknown</CharacteristicValues>
           ) : (
             <CharacteristicValues>{dataCharacter?.type}</CharacteristicValues>
@@ -86,13 +101,7 @@ export const DetailCard = ({id}: QueryCharacterArgs) => {
       <InfoSection>
         <FlatList
           data={dataCharacter?.episode}
-          renderItem={({item}) => (
-            <Episodes>
-              <CharacteristicName>{item?.episode}</CharacteristicName>
-              <CharacteristicValues>{item?.name}</CharacteristicValues>
-              <EpisodesDate>{item?.air_date}</EpisodesDate>
-            </Episodes>
-          )}
+          renderItem={({item}) => <Episodes {...item} />}
           keyExtractor={item => item?.id!}
           scrollEnabled={false}
         />

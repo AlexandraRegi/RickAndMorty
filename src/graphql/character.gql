@@ -1,9 +1,9 @@
+#import './fragments.gql'
+
 query character($id: ID!) {
   character(id: $id) {
-    name
     id
-    status
-    image
+    ...CharacterFragment
     species
     gender
     type

@@ -19,7 +19,6 @@ export interface Character {
 
 export const Card = (item: Character) => {
   const navigation = useNavigation();
-
   return (
     <CharacterCard
       onPress={() =>
