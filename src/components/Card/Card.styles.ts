@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const CharacterCard = styled.View`
+export const CharacterCard = styled.TouchableOpacity`
   width: 45%;
   height: 219px;
   border: 1px solid #efeff4;

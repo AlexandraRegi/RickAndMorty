@@ -7,6 +7,7 @@ import {
   CharacterInfo,
   CharacterName,
 } from './Card.styles';
+import {useNavigation} from '../../hooks/useNavigation';
 
 export interface Character {
   __typename?: 'Character' | undefined;
@@ -17,8 +18,14 @@ export interface Character {
 }
 
 export const Card = (item: Character) => {
+  const navigation = useNavigation();
   return (
-    <CharacterCard>
+    <CharacterCard
+      onPress={() =>
+        navigation.navigate('CharacterDetailScreen', {
+          id: item?.id,
+        })
+      }>
       <CharacterImage source={{uri: item?.image!}} />
       <CharacterInfo>
         <Text>{item?.status}</Text>

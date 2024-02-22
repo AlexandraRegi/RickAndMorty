@@ -1,0 +1,25 @@
+#import './fragments.gql'
+
+query character($id: ID!) {
+  character(id: $id) {
+    id
+    ...CharacterFragment
+    species
+    gender
+    type
+    origin {
+      id
+      name
+    }
+    location {
+      id
+      name
+    }
+    episode {
+      id
+      name
+      air_date
+      episode
+    }
+  }
+}

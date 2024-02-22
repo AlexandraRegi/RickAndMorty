@@ -1,5 +1,3 @@
-/* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -11,14 +9,12 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
-
 export type Scalars = {
   ID: { input: string; output: string; }
   String: { input: string; output: string; }
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  /** The `Upload` scalar type represents a file upload. */
   Upload: { input: any; output: any; }
 };
 
@@ -212,10 +208,7 @@ export type CharacterQueryVariables = Exact<{
 }>;
 
 
-export type CharacterQuery = { __typename?: 'Query', character?: (
-    { __typename?: 'Character', id?: string | null, species?: string | null, gender?: string | null, type?: string | null, origin?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, location?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, episode: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null, air_date?: string | null, episode?: string | null } | null> }
-    & { ' $fragmentRefs'?: { 'CharacterFragmentFragment': CharacterFragmentFragment } }
-  ) | null };
+export type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', id?: string | null, species?: string | null, gender?: string | null, type?: string | null, name?: string | null, status?: string | null, image?: string | null, origin?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, location?: { __typename?: 'Location', id?: string | null, name?: string | null } | null, episode: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null, air_date?: string | null, episode?: string | null } | null> } | null };
 
 export type CharactersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -223,12 +216,9 @@ export type CharactersQueryVariables = Exact<{
 }>;
 
 
-export type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<(
-      { __typename?: 'Character', id?: string | null }
-      & { ' $fragmentRefs'?: { 'CharacterFragmentFragment': CharacterFragmentFragment } }
-    ) | null> | null } | null };
+export type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', id?: string | null, name?: string | null, status?: string | null, image?: string | null } | null> | null } | null };
 
-export type CharacterFragmentFragment = { __typename?: 'Character', name?: string | null, status?: string | null, image?: string | null } & { ' $fragmentName'?: 'CharacterFragmentFragment' };
+export type CharacterFragmentFragment = { __typename?: 'Character', name?: string | null, status?: string | null, image?: string | null };
 
 export const CharacterFragmentFragmentDoc = gql`
     fragment CharacterFragment on Character {
