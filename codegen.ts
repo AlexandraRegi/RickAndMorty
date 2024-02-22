@@ -4,17 +4,13 @@ const config: CodegenConfig = {
   schema: 'https://rickandmortyapi.com/graphql',
   documents: ['src/**/*.gql'],
   generates: {
-    './src/gql/': {
+    './src/gql/generated.ts': {
       plugins: [
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
       ],
       config: {withHooks: true},
-      preset: 'client',
-      presetConfig: {
-        gqlTagName: 'gql',
-      },
     },
   },
 };

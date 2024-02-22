@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, ScrollView} from 'react-native';
 
-import {QueryCharacterArgs, useCharacterQuery} from '../../gql/graphql';
+import {QueryCharacterArgs, useCharacterQuery} from '../../gql/generated';
 import {useNavigation} from '../../hooks/useNavigation';
 import {BackIcon} from '../../icons/back';
 

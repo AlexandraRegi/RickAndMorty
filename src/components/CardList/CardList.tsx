@@ -6,7 +6,7 @@ import {FlatList, TouchableOpacity} from 'react-native';
 import {Card} from '../Card/Card';
 import {useFilterContext} from '../../context/FilterContext';
 import {useNavigation} from '../../hooks/useNavigation';
-import {useCharactersQuery} from '../../gql/graphql';
+import {useCharactersQuery} from '../../gql/generated';
 
 import {Header, Title, Filter, Container} from './CardList.styles';
 
